@@ -1,0 +1,152 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="dark light">
+<title>AuraWeb</title>
+<style>
+  :root{
+    --bg:#0F0B1A;--bg2:#160F2B;--surface:#1A1430;--surface2:#241C40;--stroke:rgba(169,139,255,.18);
+    --text:#EEE8FF;--dim:#9A90B8;--accent:#A98BFF;--accent2:#7C5CFF;--glow:rgba(124,92,255,.35);
+  }
+  html.light{
+    --bg:#F6F3FF;--bg2:#EDE6FF;--surface:#FFFFFF;--surface2:#F1ECFF;--stroke:rgba(109,74,255,.16);
+    --text:#1C1530;--dim:#6B6287;--accent:#6D4AFF;--accent2:#8B6CFF;--glow:rgba(139,108,255,.22);
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;height:100%}
+  body{
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    background:var(--bg);color:var(--text);
+    display:flex;flex-direction:column;align-items:center;
+    padding:max(14vh,72px) 20px 28px;overflow-x:hidden;
+  }
+  .aura{position:fixed;inset:-20% -30% auto;height:70vh;pointer-events:none;z-index:0;
+    background:radial-gradient(50% 55% at 50% 40%,var(--glow),transparent 70%);
+    filter:blur(8px);opacity:.9;will-change:transform;animation:breathe 9s ease-in-out infinite alternate}
+  @keyframes breathe{from{transform:translateY(-4%) scale(1)}to{transform:translateY(3%) scale(1.08)}}
+  main{position:relative;z-index:1;width:100%;max-width:440px;display:flex;flex-direction:column;align-items:center}
+  .logo{width:64px;height:64px;border-radius:20px;box-shadow:0 10px 30px var(--glow);margin-bottom:18px;
+    animation:rise .6s cubic-bezier(.2,.8,.2,1) both}
+  .eyebrow{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px;
+    animation:rise .6s .04s cubic-bezier(.2,.8,.2,1) both}
+  h1{margin:0;font-size:44px;line-height:1;font-weight:800;letter-spacing:-.03em;
+    background:linear-gradient(135deg,var(--text) 10%,var(--accent) 60%,var(--accent2));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    animation:rise .6s .08s cubic-bezier(.2,.8,.2,1) both}
+  .tag{margin:12px 0 0;font-size:16px;font-weight:600;text-align:center;animation:rise .6s .12s cubic-bezier(.2,.8,.2,1) both}
+  .sub{margin:4px 0 0;font-size:13px;color:var(--dim);animation:rise .6s .14s cubic-bezier(.2,.8,.2,1) both}
+  form{width:100%;margin-top:28px;animation:rise .6s .18s cubic-bezier(.2,.8,.2,1) both}
+  .search{display:flex;align-items:center;gap:10px;height:54px;padding:0 8px 0 16px;border-radius:27px;
+    background:var(--surface);border:1px solid var(--stroke);
+    box-shadow:0 8px 28px rgba(0,0,0,.18);transition:border-color .2s,box-shadow .2s,transform .2s}
+  .search:focus-within{border-color:var(--accent);box-shadow:0 8px 32px var(--glow);transform:translateY(-1px)}
+  .search svg{flex:none;opacity:.7}
+  .search input{flex:1;min-width:0;height:100%;border:0;outline:0;background:transparent;color:var(--text);font:inherit;font-size:16px}
+  .search input::placeholder{color:var(--dim)}
+  .engine{flex:none;height:38px;min-width:38px;padding:0 12px;border-radius:19px;border:0;font:inherit;font-size:13px;font-weight:700;
+    background:var(--surface2);color:var(--accent)}
+  .grid{width:100%;display:grid;grid-template-columns:repeat(4,1fr);gap:14px 8px;margin-top:30px;animation:rise .6s .24s cubic-bezier(.2,.8,.2,1) both}
+  .site{display:flex;flex-direction:column;align-items:center;gap:8px;text-decoration:none;color:var(--text);min-width:0}
+  .site i{width:52px;height:52px;border-radius:17px;display:grid;place-items:center;font-style:normal;font-weight:800;font-size:19px;
+    background:var(--surface);border:1px solid var(--stroke);color:var(--accent);transition:transform .18s cubic-bezier(.2,.8,.2,1)}
+  .site:active i{transform:scale(.9)}
+  .site span{font-size:12px;color:var(--dim);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .chips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:28px;animation:rise .6s .3s cubic-bezier(.2,.8,.2,1) both}
+  .chip{height:38px;padding:0 16px;border-radius:19px;display:inline-flex;align-items:center;text-decoration:none;font-size:14px;font-weight:600;
+    color:var(--text);background:var(--surface2);border:1px solid var(--stroke);transition:transform .15s,background .2s}
+  .chip:active{transform:scale(.95);background:var(--surface)}
+  footer{position:relative;z-index:1;margin-top:auto;padding-top:36px;font-size:12px;color:var(--dim);text-align:center}
+  @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  html.calm *{animation:none!important;transition:none!important}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<div class="aura"></div>
+<main>
+  <svg class="logo" viewBox="0 0 108 108" aria-hidden="true">
+    <defs>
+      <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3B2472"/><stop offset="1" stop-color="#140D2A"/></linearGradient>
+      <radialGradient id="gl" cx=".7" cy=".25" r=".7"><stop offset="0" stop-color="#9B7BFF" stop-opacity=".45"/><stop offset="1" stop-color="#9B7BFF" stop-opacity="0"/></radialGradient>
+      <linearGradient id="st" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#C6A8FF"/></linearGradient>
+    </defs>
+    <rect width="108" height="108" rx="30" fill="url(#bg)"/><rect width="108" height="108" rx="30" fill="url(#gl)"/>
+    <path d="M35 76 50.5 32 66 76M41 61h19" fill="none" stroke="url(#st)" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="73" cy="33" r="5" fill="#D9C4FF"/>
+  </svg>
+  <p class="eyebrow" data-i="eyebrow"></p>
+  <h1>AuraWeb</h1>
+  <p class="tag" data-i="tag"></p>
+  <p class="sub" data-i="sub"></p>
+  <form id="f" autocomplete="off">
+    <label class="search">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+      <input id="q" type="search" enterkeyhint="go" autocapitalize="off" spellcheck="false">
+      <button type="button" class="engine" id="eng" aria-label="engine"></button>
+    </label>
+  </form>
+  <nav class="grid" id="grid"></nav>
+  <div class="chips">
+    <a class="chip" href="aura://bookmarks" data-i="bookmarks"></a>
+    <a class="chip" href="aura://history" data-i="history"></a>
+    <a class="chip" href="aura://settings" data-i="settings"></a>
+  </div>
+</main>
+<footer id="foot"></footer>
+<script>
+(function(){
+  var p=new URLSearchParams(location.search), d=document, root=d.documentElement;
+  var theme=p.get('theme')||'dark', lang=p.get('lang')==='en'?'en':'ru', engine=p.get('engine')==='yandex'?'yandex':'google';
+  if(theme==='light')root.classList.add('light');
+  if(p.get('calm')==='1')root.classList.add('calm');
+  root.lang=lang;
+  var inApp=location.protocol==='file:';
+  var T={
+    ru:{eyebrow:'Ваше пространство в сети',tag:'Меньше шума. Больше пространства.',sub:'Ваш интернет — в вашем ритме.',
+        ph:'Адрес сайта или поисковый запрос',bookmarks:'Закладки',history:'История',settings:'Настройки',foot:'Поиск: ',demo:'Доступно в приложении'},
+    en:{eyebrow:'Your space on the web',tag:'Less noise. More space.',sub:'Your internet, at your own pace.',
+        ph:'Search or type a web address',bookmarks:'Bookmarks',history:'History',settings:'Settings',foot:'Search: ',demo:'Available in the app'}
+  }[lang];
+  var E={google:{n:'Google',b:'G',u:'https://www.google.com/search?q='},yandex:{n:lang==='ru'?'Яндекс':'Yandex',b:lang==='ru'?'Я':'Y',u:'https://yandex.ru/search/?text='}}[engine];
+  d.querySelectorAll('[data-i]').forEach(function(n){n.textContent=T[n.getAttribute('data-i')]});
+  var q=d.getElementById('q'); q.placeholder=T.ph;
+  d.getElementById('eng').textContent=E.b;
+  d.getElementById('eng').onclick=function(){q.focus()};
+  d.getElementById('foot').textContent=T.foot+E.n;
+
+  var sites=[];
+  try{sites=JSON.parse(decodeURIComponent(location.hash.slice(1))||'[]')}catch(e){}
+  if(!sites.length){
+    sites=[{t:'YouTube',u:'https://m.youtube.com'},{t:lang==='ru'?'Википедия':'Wikipedia',u:'https://'+lang+'.m.wikipedia.org'},
+      engine==='yandex'?{t:'Google',u:'https://www.google.com'}:{t:lang==='ru'?'Яндекс':'Yandex',u:'https://ya.ru'},{t:'GitHub',u:'https://github.com'}];
+  }
+  var g=d.getElementById('grid'), frag=d.createDocumentFragment();
+  sites.slice(0,8).forEach(function(s){
+    var a=d.createElement('a'); a.className='site'; a.href=s.u;
+    var host=s.u.replace(/^https?:\/\/(www\.|m\.)?/,'');
+    var i=d.createElement('i'); i.textContent=((s.t||host).trim()[0]||'•').toUpperCase();
+    var sp=d.createElement('span'); sp.textContent=s.t||host;
+    a.appendChild(i); a.appendChild(sp); frag.appendChild(a);
+  });
+  g.appendChild(frag);
+
+  function go(url){ if(inApp) location.href=url; else window.open(url,'_blank','noopener'); }
+  d.getElementById('f').onsubmit=function(e){
+    e.preventDefault(); var v=q.value.trim(); if(!v)return;
+    var isUrl=/^[a-z][a-z0-9+.-]*:\/\//i.test(v)||(!/\s/.test(v)&&/^[^\s.]+(\.[^\s.]+)+(:\d+)?(\/.*)?$/.test(v));
+    go(isUrl?(/^[a-z][a-z0-9+.-]*:\/\//i.test(v)?v:'https://'+v):E.u+encodeURIComponent(v));
+  };
+  if(!inApp){
+    d.addEventListener('click',function(e){
+      var a=e.target.closest&&e.target.closest('a'); if(!a)return;
+      e.preventDefault();
+      if(a.href.indexOf('aura:')===0){var f=d.getElementById('foot');f.textContent=T.demo;setTimeout(function(){f.textContent=T.foot+E.n},1600)}
+      else go(a.href);
+    });
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+# The website is plain static HTML (no build tools). The build step only copies
+# the browser's real start page into the site so the live demo always matches the app.
+[build]
+  publish = "site"
+  command = "mkdir -p site/demo && cp android/app/src/main/assets/home.html site/demo/home.html && rm -f site/AuraWeb.zip && python3 -m zipfile -c site/AuraWeb.zip android branding README.md netlify.toml"
+
+[[headers]]
+  for = "/demo/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"

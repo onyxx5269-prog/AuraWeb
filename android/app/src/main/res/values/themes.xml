@@ -1,0 +1,55 @@
+<resources>
+    <style name="Theme.Aura.Dark" parent="android:Theme.Material.NoActionBar">
+        <item name="auraBg">#FF0F0B1A</item>
+        <item name="auraSurface">#FF1A1430</item>
+        <item name="auraSurface2">#FF251D42</item>
+        <item name="auraStroke">#FF30275A</item>
+        <item name="auraText">#FFEEE8FF</item>
+        <item name="auraTextDim">#FF9A90B8</item>
+        <item name="auraAccent">#FFA98BFF</item>
+        <item name="auraOnAccent">#FF14092A</item>
+        <item name="auraRipple">#33A98BFF</item>
+        <item name="auraScrim">#99050310</item>
+        <item name="android:colorPrimary">#FF1A1430</item>
+        <item name="android:colorAccent">#FFA98BFF</item>
+        <item name="android:colorControlActivated">#FFA98BFF</item>
+        <item name="android:windowBackground">#FF0F0B1A</item>
+        <item name="android:statusBarColor">#FF0F0B1A</item>
+        <item name="android:navigationBarColor">#FF1A1430</item>
+        <item name="android:textColorPrimary">#FFEEE8FF</item>
+        <item name="android:textColorHint">#FF7D739C</item>
+        <item name="android:textCursorDrawable">@null</item>
+        <item name="android:windowAnimationStyle">@style/AuraWindowAnim</item>
+    </style>
+
+    <style name="Theme.Aura.Light" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="auraBg">#FFF6F3FF</item>
+        <item name="auraSurface">#FFFFFFFF</item>
+        <item name="auraSurface2">#FFEFE9FF</item>
+        <item name="auraStroke">#FFE1D9F8</item>
+        <item name="auraText">#FF1C1530</item>
+        <item name="auraTextDim">#FF6B6287</item>
+        <item name="auraAccent">#FF6D4AFF</item>
+        <item name="auraOnAccent">#FFFFFFFF</item>
+        <item name="auraRipple">#226D4AFF</item>
+        <item name="auraScrim">#661C1530</item>
+        <item name="android:colorPrimary">#FFFFFFFF</item>
+        <item name="android:colorAccent">#FF6D4AFF</item>
+        <item name="android:colorControlActivated">#FF6D4AFF</item>
+        <item name="android:windowBackground">#FFF6F3FF</item>
+        <item name="android:statusBarColor">#FFF6F3FF</item>
+        <item name="android:navigationBarColor">#FFFFFFFF</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:textColorPrimary">#FF1C1530</item>
+        <item name="android:textColorHint">#FF8E86A8</item>
+        <item name="android:textCursorDrawable">@null</item>
+        <item name="android:windowAnimationStyle">@style/AuraWindowAnim</item>
+    </style>
+
+    <style name="AuraWindowAnim" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in</item>
+        <item name="android:activityOpenExitAnimation">@anim/hold</item>
+        <item name="android:activityCloseEnterAnimation">@anim/hold</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_out</item>
+    </style>
+</resources>

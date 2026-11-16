@@ -1,0 +1,12 @@
+<resources>
+    <attr name="auraBg" format="color"/>
+    <attr name="auraSurface" format="color"/>
+    <attr name="auraSurface2" format="color"/>
+    <attr name="auraStroke" format="color"/>
+    <attr name="auraText" format="color"/>
+    <attr name="auraTextDim" format="color"/>
+    <attr name="auraAccent" format="color"/>
+    <attr name="auraOnAccent" format="color"/>
+    <attr name="auraRipple" format="color"/>
+    <attr name="auraScrim" format="color"/>
+</resources>
