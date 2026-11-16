@@ -5,8 +5,9 @@ on:
     branches: [main]
   workflow_dispatch:
 
+# Needed so the job can create a Release with the APK attached.
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build:
@@ -22,17 +23,38 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
+      # ubuntu-latest already ships with the Android SDK, so the old
+      # "Set up Android SDK" action is not needed (it was the step that failed).
+      # We only accept the licenses, so Gradle may download any missing package.
+      - name: Accept Android SDK licenses
+        run: |
+          SDK_ROOT="${ANDROID_HOME:-$ANDROID_SDK_ROOT}"
+          yes | "$SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null || true
 
       - name: Build APK
         working-directory: android
         run: |
           chmod +x gradlew
-          ./gradlew assembleRelease
+          ./gradlew assembleRelease --no-daemon --stacktrace
 
-      - name: Upload APK
+      - name: Collect APK
+        run: cp android/app/build/outputs/apk/release/app-release.apk AuraWeb.apk
+
+      - name: Upload APK as artifact
         uses: actions/upload-artifact@v4
         with:
           name: AuraWeb-APK
-          path: android/app/build/outputs/apk/release/*.apk
+          path: AuraWeb.apk
+          if-no-files-found: error
+
+      # Creates a public Release, so the APK can be opened and downloaded
+      # straight from the phone browser (artifacts require a GitHub login).
+      - name: Publish APK release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="build-${{ github.run_number }}"
+          gh release delete "$TAG" --yes --cleanup-tag || true
+          gh release create "$TAG" AuraWeb.apk \
+            --title "AuraWeb build ${{ github.run_number }}" \
+            --notes "Готовый APK. Скачай AuraWeb.apk на телефон и установи (разреши установку из неизвестных источников)."
