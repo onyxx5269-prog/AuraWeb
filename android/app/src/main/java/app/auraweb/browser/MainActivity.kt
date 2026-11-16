@@ -124,7 +124,7 @@ class MainActivity : BaseActivity() {
 
     override fun onPause() {
         super.onPause()
-        // Pauses JS timers in every WebView while we're in the background — saves battery.
+        // Pauses JS timers in every WebView while we're in the background вЂ” saves battery.
         tabs.getOrNull(current)?.web?.let { it.onPause(); it.pauseTimers() }
         CookieManager.getInstance().flush()
         store.saveSession(tabs.map { it.url to it.title }, current)
@@ -392,7 +392,7 @@ class MainActivity : BaseActivity() {
         trimLive(prefs.maxLiveTabs)
         updateAddress()
         updateTabCount()
-        setProgress(w.progress)
+        updateProgress(w.progress)
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -547,7 +547,7 @@ class MainActivity : BaseActivity() {
         tabCount.text = if (tabs.size > 99) ":)" else tabs.size.toString()
     }
 
-    private fun setProgress(p: Int) {
+    private fun updateProgress(p: Int) {
         progress.animate().cancel()
         if (p >= 100) {
             progress.animate().scaleX(1f).setDuration(dur(120)).withEndAction {
@@ -675,12 +675,12 @@ class MainActivity : BaseActivity() {
         override fun onPageStarted(view: WebView, url: String?, favicon: Bitmap?) {
             t.url = normalize(url)
             if (isHome(url)) t.title = ""
-            if (isCurrent(t)) { updateAddress(); setProgress(8) }
+            if (isCurrent(t)) { updateAddress(); updateProgress(8) }
         }
 
         override fun onPageFinished(view: WebView, url: String?) {
             t.url = normalize(url)
-            if (isCurrent(t)) { setProgress(100); updateAddress() }
+            if (isCurrent(t)) { updateProgress(100); updateAddress() }
             if (prefs.saveHistory && !isHome(url) && url != null && url.startsWith("http")) {
                 store.addHistory(view.title ?: t.title, url)
             }
@@ -704,7 +704,7 @@ class MainActivity : BaseActivity() {
     private inner class Chrome(val t: Tab) : WebChromeClient() {
 
         override fun onProgressChanged(view: WebView, newProgress: Int) {
-            if (isCurrent(t)) setProgress(newProgress)
+            if (isCurrent(t)) updateProgress(newProgress)
         }
 
         override fun onReceivedTitle(view: WebView, title: String?) {
